@@ -1,19 +1,8 @@
-# ┌───────────── minute (0 - 59)
-# │ ┌───────────── hour (0 - 23)
-# │ │ ┌───────────── day of the month (1 - 31)
-# │ │ │ ┌───────────── month (1 - 12 or JAN-DEC)
-# │ │ │ │ ┌───────────── day of the week (0 - 6 or SUN-SAT)
-# │ │ │ │ │
-# │ │ │ │ │
-# │ │ │ │ │
-# * * * * *
-
 name: Data Merge 🔄
 
-# Run when all of the others have completed
 on:
   workflow_run:
-    workflows: ["CISA Scraping 🕷️", "OPM Scraping 🕷️", "USA Scraping 🕷️"]
+    workflows: ["Compare & Upload 📊"]
     types:
       - completed
 
@@ -21,6 +10,7 @@ jobs:
   merge_data:
     name: Merge Data
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
     steps:
       - name: 🛠️ Check out repository
