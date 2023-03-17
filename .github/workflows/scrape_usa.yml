@@ -18,8 +18,7 @@ on:
 jobs:
   scrape_usagov:
     name: Scrape USA.gov
-    # runs-on: ubuntu-latest
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     steps:
       - name: 🛠️ Check out repository
