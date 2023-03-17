@@ -9,7 +9,7 @@ on:
 jobs:
   merge_data:
     name: Merge Data
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
