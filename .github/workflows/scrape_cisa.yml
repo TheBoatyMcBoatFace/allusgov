@@ -18,7 +18,7 @@ on:
 jobs:
   scrape_cisagov:
     name: Scrape CISA
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     steps:
       - name: 🛠️ Check out repository
