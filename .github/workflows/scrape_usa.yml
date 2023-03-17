@@ -44,3 +44,4 @@ jobs:
         with:
           agency_name: "USA"
           agency_data_path: "out/usagov.json"
+          github_token: ${{ secrets.GITHUB_TOKEN }}

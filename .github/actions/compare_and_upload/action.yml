@@ -8,17 +8,20 @@ inputs:
   agency_data_path:
     description: "Path to the agency data file"
     required: true
+  github_token:
+    description: "GitHub token for authentication"
+    required: true
 
 runs:
   using: "composite"
   steps:
     - name: 🛠️ Check out repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         ref: ${{ github.event.pull_request.head.sha }}
 
     - name: 🐍 Set up Python environment
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: 3.x
 
