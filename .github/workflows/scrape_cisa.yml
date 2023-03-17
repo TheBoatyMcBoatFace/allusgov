@@ -1,23 +1,14 @@
-# ┌───────────── minute (0 - 59)
-# │ ┌───────────── hour (0 - 23)
-# │ │ ┌───────────── day of the month (1 - 31)
-# │ │ │ ┌───────────── month (1 - 12 or JAN-DEC)
-# │ │ │ │ ┌───────────── day of the week (0 - 6 or SUN-SAT)
-# │ │ │ │ │
-# │ │ │ │ │
-# │ │ │ │ │
-# * * * * *
-
 name: CISA Scraping 🕷️
 
 on:
   schedule:
     - cron: "0 0 * * *" # Run daily at 00:00 UTC
+
   workflow_dispatch:
 
 jobs:
   scrape_cisagov:
-    name: Scrape CISA
+    name: CISA Scraping 🕷️
     runs-on: ubuntu-latest
 
     steps:
@@ -40,7 +31,7 @@ jobs:
           scrapy runspider cisagov.py -o out/cisagov.json
 
       - name: 📊 Compare & Upload agency data
-        uses: ${{ github.repository }}/.github/workflows/compare_and_upload.yml
+        uses: ${{ github.repository }}/.github/workflows/compare_and_upload.yml@main
         with:
           agency_name: "CISA"
           agency_data_path: "out/cisagov.json"

@@ -40,7 +40,7 @@ jobs:
           python usagov.py
 
       - name: 📊 Compare & Upload agency data
-        uses: theboatymcboatface/allusgov/.github/workflows/compare_and_upload.yml
+        uses: theboatymcboatface/allusgov/.github/workflows/compare_and_upload.yml@main
         with:
           agency_name: "USA"
           agency_data_path: "out/usagov.json"

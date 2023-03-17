@@ -40,7 +40,7 @@ jobs:
           python opmgov.py
 
       - name: 📊 Compare & Upload agency data
-        uses: ${{ github.repository }}/.github/workflows/compare_and_upload.yml
+        uses: ${{ github.repository }}/.github/workflows/compare_and_upload.yml@main
         with:
           agency_name: "OPM"
           agency_data_path: "out/opmgov.json"
