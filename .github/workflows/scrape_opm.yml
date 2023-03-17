@@ -1,0 +1,46 @@
+# ┌───────────── minute (0 - 59)
+# │ ┌───────────── hour (0 - 23)
+# │ │ ┌───────────── day of the month (1 - 31)
+# │ │ │ ┌───────────── month (1 - 12 or JAN-DEC)
+# │ │ │ │ ┌───────────── day of the week (0 - 6 or SUN-SAT)
+# │ │ │ │ │
+# │ │ │ │ │
+# │ │ │ │ │
+# * * * * *
+
+name: OPM Scraping 📚
+
+on:
+  schedule:
+    - cron: "0 0 * * *" # Run daily at 00:00 UTC
+  workflow_dispatch:
+
+jobs:
+  scrape_opmgov:
+    name: Scrape OPM
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🛠️ Check out repository
+        uses: actions/checkout@v2
+
+      - name: 🐍 Set up Python environment
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+
+      - name: 📦 Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: 📝 Run Opmgov script
+        run: |
+          cd /scripts
+          python opmgov.py
+
+      - name: 📊 Compare & Upload agency data
+        uses: ./.github/workflows/compare_and_upload.yml
+        with:
+          agency_name: "OPM"
+          agency_data_path: "out/opmgov.json"

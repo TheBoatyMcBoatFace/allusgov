@@ -1,0 +1,56 @@
+name: Data Merge 🔄
+
+on:
+  workflow_run:
+    workflows: ["Compare & Upload 📊"]
+    types:
+      - completed
+
+jobs:
+  merge_data:
+    name: Merge Data
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    steps:
+      - name: 🛠️ Check out repository
+        uses: actions/checkout@v2
+
+      - name: 🐍 Set up Python environment
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+
+      - name: 📦 Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install thefuzz
+
+      - name: 📥 Download artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: cisagov-data
+          path: out
+
+      - name: 📥 Download artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: opmgov-data
+          path: out
+
+      - name: 📥 Download artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: usagov-data
+          path: out
+
+      - name: 🧩 Run Merge script
+        run: |
+          cd /merge
+          python merge.py
+
+      - name: 📊 Compare & Upload merged data
+        uses: ./.github/workflows/compare_and_upload.yml
+        with:
+          agency_name: "Merged"
+          agency_data_path: "out/merged.json"
