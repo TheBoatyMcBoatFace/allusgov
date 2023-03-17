@@ -40,7 +40,7 @@ jobs:
           scrapy runspider cisagov.py -o out/cisagov.json
 
       - name: 📊 Compare & Upload agency data
-        uses: ./.github/workflows/compare_and_upload.yml
+        uses: ${{ github.repository }}/.github/workflows/compare_and_upload.yml
         with:
           agency_name: "CISA"
           agency_data_path: "out/cisagov.json"
