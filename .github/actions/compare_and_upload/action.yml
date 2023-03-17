@@ -36,7 +36,7 @@ runs:
       env:
         AGENCY_NAME: ${{ inputs.agency_name }}
         AGENCY_DATA_PATH: ${{ inputs.agency_data_path }}
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ inputs.github_token }}
         REPO: ${{ github.repository }}
       run: |
         python compare_and_upload.py
