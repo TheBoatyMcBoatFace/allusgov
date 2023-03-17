@@ -16,8 +16,6 @@ def apply_label(g, repo_name, commit_sha, label_name):
     )
     commit.set_labels(*labels)
 
-
-
 def compare_data(data_path, agency_name):
     with open(data_path, 'r') as f:
         new_data = json.load(f)
@@ -29,23 +27,19 @@ def compare_data(data_path, agency_name):
     else:
         previous_data = []
 
-    # Convert the inner lists to tuples
-    new_data_set = set(tuple(tuple(entry) for entry in entry.items()) for entry in new_data)
-    previous_data_set = set(tuple(tuple(entry) for entry in entry.items()) for entry in previous_data)
+    # Convert the inner dictionaries to frozensets
+    new_data_set = set(frozenset(entry.items()) for entry in new_data)
+    previous_data_set = set(frozenset(entry.items()) for entry in previous_data)
 
     added_entries = new_data_set - previous_data_set
     removed_entries = previous_data_set - new_data_set
 
-    return added_entries, removed_entries
-
-
     # Calculate the symmetric difference and union
-    symmetric_difference = new_data_set.symmetric_difference(last_data_set)
-    union = new_data_set.union(last_data_set)
+    symmetric_difference = new_data_set.symmetric_difference(previous_data_set)
+    union = new_data_set.union(previous_data_set)
 
     # Calculate the percentage of changes
     percentage_changed = (len(symmetric_difference) / len(union)) * 100
-
 
     # Initialize the Github client
     g = Github(os.environ["GITHUB_TOKEN"])
