@@ -40,7 +40,7 @@ jobs:
           python usagov.py
 
       - name: 📊 Compare & Upload agency data
-        uses: ${{ github.repository }}/.github/workflows/compare_and_upload.yml
+        uses: ${{ github.repository_owner }}/${{ github.repository }}/.github/workflows/compare_and_upload.yml
         with:
           agency_name: "USA"
           agency_data_path: "out/usagov.json"
