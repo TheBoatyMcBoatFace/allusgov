@@ -39,9 +39,15 @@ def compare_data(data_path, agency_name):
     print(f"Added entries: {len(added_entries)}")
     print(f"Removed entries: {len(removed_entries)}")
 
+    # Update the previous data file
+    with open(previous_data_path, 'w') as f:
+        json.dump(new_data, f, indent=4)
+
+
 # End Compare Data
 
 if __name__ == "__main__":
     agency_name = os.environ["AGENCY_NAME"]
     agency_data_path = os.environ["AGENCY_DATA_PATH"]
     compare_data(agency_data_path, agency_name)
+
