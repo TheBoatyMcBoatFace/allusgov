@@ -67,7 +67,7 @@ def compare_data(data_path, agency_name):
         label_name = "Major Changes"
 
     # Apply the label to the current commit
-    commit_sha = repo.head.commit.hexsha
+    commit_sha = repo.get_commits()[0].sha
     apply_label(g, repo_name, commit_sha, label_name)
 
 
@@ -78,3 +78,5 @@ if __name__ == "__main__":
     agency_name = os.environ["AGENCY_NAME"]
     agency_data_path = os.environ["AGENCY_DATA_PATH"]
     compare_data(agency_data_path, agency_name)
+
+
