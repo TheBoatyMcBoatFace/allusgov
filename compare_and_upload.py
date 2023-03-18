@@ -52,6 +52,7 @@ def compare_data(data_path, agency_name):
     # Initialize the Github client
     g = Github(os.environ["GITHUB_TOKEN"])
     repo_name = os.environ["REPO"]
+    repo = g.get_repo(repo_name)  # Add this line to get the repo object
 
     # Apply the appropriate labels based on the changes
     if percentage_changed == 0:
