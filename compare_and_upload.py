@@ -16,28 +16,30 @@ def apply_label(g, repo_name, commit_sha, label_name):
     )
     commit.set_labels(*labels)
 
-def compare_data(agency_data_path, agency_name):
-    # Load the new data
-    with open(agency_data_path, "r") as file:
-        new_data = json.load(file)
+def compare_data(data_path, agency_name):
+    with open(data_path, 'r') as f:
+        new_data = json.load(f)
 
-    # Load the last committed data
-    repo = git.Repo(search_parent_directories=True)
-    last_commit = repo.head.commit
-    last_commit_data = last_commit.tree[agency_data_path].data_stream.read().decode("utf-8")
-    last_data = json.loads(last_commit_data)
+    previous_data_path = f"prev_data/{agency_name.lower()}.json"
+    if os.path.exists(previous_data_path):
+        with open(previous_data_path, 'r') as f:
+            previous_data = json.load(f)
+    else:
+        previous_data = []
 
-    # Convert the data to sets of tuples
-    new_data_set = set(tuple(entry.items()) for entry in new_data)
-    last_data_set = set(tuple(entry.items()) for entry in last_data)
+    # Convert the inner dictionaries to frozensets
+    new_data_set = set(frozenset(entry.items()) for entry in new_data)
+    previous_data_set = set(frozenset(entry.items()) for entry in previous_data)
+
+    added_entries = new_data_set - previous_data_set
+    removed_entries = previous_data_set - new_data_set
 
     # Calculate the symmetric difference and union
-    symmetric_difference = new_data_set.symmetric_difference(last_data_set)
-    union = new_data_set.union(last_data_set)
+    symmetric_difference = new_data_set.symmetric_difference(previous_data_set)
+    union = new_data_set.union(previous_data_set)
 
     # Calculate the percentage of changes
     percentage_changed = (len(symmetric_difference) / len(union)) * 100
-
 
     # Initialize the Github client
     g = Github(os.environ["GITHUB_TOKEN"])
