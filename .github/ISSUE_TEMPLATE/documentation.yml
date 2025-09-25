@@ -1,7 +1,7 @@
 name: 📚 Documentation
 description: Used for suggesting improvements or updates to project documentation.
 title: "[Documentation] <Short Description>"
-labels: [📚 Documentation]
+labels: [📚 Documentation,🤔 Unrefined]
 
 body:
   - type: textarea

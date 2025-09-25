@@ -1,7 +1,7 @@
 name: 🛠️ Task
 description: Used to assign tasks or responsibilities to specific team members, such as code reviews, testing, or deployment.
 title: "<Title of Task>"
-labels: [🤔 Unrefined, 🛠️ Task]
+labels: [🤔 Unrefined]
 body:
   - type: textarea
     attributes:

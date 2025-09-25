@@ -1,7 +1,7 @@
 name: 📊 Data Feedback
 description: Provide feedback or report issues with the election data from Louisiana in the /data directory.
 title: "[Data Feedback] <Brief Description>"
-labels: [📊 Data Feedback]
+labels: [📊 Data,🤔 Unrefined]
 
 body:
   - type: textarea

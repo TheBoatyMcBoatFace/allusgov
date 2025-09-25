@@ -1,7 +1,7 @@
 name: 💡 Feature Request
 description: Suggest a new feature or enhancement for the project.
 title: "[Feature] <Short Feature Description>"
-labels: [💡 Feature Request]
+labels: [💡 Feature Request,🤔 Unrefined]
 
 body:
   - type: textarea

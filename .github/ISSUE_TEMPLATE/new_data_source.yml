@@ -1,7 +1,7 @@
 name: 🗂️ New Data Source
 description: Propose a new official source of US organizational data for scraping and integration.
 title: "[Data Source] <Brief Description>"
-labels: [🗂️ Data Source,📥 Needs Review]
+labels: [📊 Data,💭 Discussion Needed,🤔 Unrefined]
 
 body:
   - type: input
